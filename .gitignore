@@ -183,3 +183,6 @@ cython_debug/
 # External Data
 /pdf
 /md
+
+# Material de estudo auxiliar e notas de apresentacao (nao commitado)
+docs/
