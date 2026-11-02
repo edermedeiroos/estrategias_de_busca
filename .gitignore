@@ -186,3 +186,4 @@ cython_debug/
 
 # Material de estudo auxiliar e notas de apresentacao (nao commitado)
 docs/
+*.zip
