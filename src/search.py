@@ -1,7 +1,5 @@
 """
-Implementação das estratégias de busca:
-1. Busca Não Informada: Busca em Largura em Grafo (BFS)
-2. Busca Informada: Algoritmo A* com função de avaliação f(n) = g(n) + h(n)
+Implementacao dos algoritmos de busca: Busca em Largura (BFS) e A*.
 """
 
 import time
@@ -60,8 +58,8 @@ class SearchResult:
         return (
             f"[{self.algorithm}] {status} | Passos: {len(self.solution or [])} | "
             f"Expandidos: {self.nodes_expanded} | Gerados: {self.nodes_generated} | "
-            f"Fronteira Máx: {self.max_frontier_size} | "
-            f"Tempo: {self.time_seconds * 1000:.2f}ms | Memória: {self.memory_kb:.2f} KB"
+            f"Fronteira Max: {self.max_frontier_size} | "
+            f"Tempo: {self.time_seconds * 1000:.2f}ms | Memoria: {self.memory_kb:.2f} KB"
         )
 
 
@@ -91,7 +89,6 @@ def breadth_first_search(problem: SamplingProblem) -> SearchResult:
     nodes_expanded = 0
     nodes_generated = 1
     max_frontier_size = 1
-
     solution_node = None
 
     while frontier:
@@ -154,7 +151,7 @@ def a_star_search(
     root_h = heuristic(root_state)
     root = Node(state=root_state, g=0, h=root_h)
 
-    # heapq armazena: (f, -g, counter, node)
+    # heapq: (f, -g, counter, node)
     counter = 0
     frontier = [(root.f, -root.g, counter, root)]
     best_g: Dict[State, int] = {root_state: 0}
@@ -170,7 +167,6 @@ def a_star_search(
 
         f, neg_g, _, node = heapq.heappop(frontier)
 
-        # Se já conhecemos um caminho melhor até este estado, descarta
         if node.g > best_g.get(node.state, float("inf")):
             continue
 
@@ -209,7 +205,7 @@ def a_star_search(
         actions, path, cost = None, None, -1
 
     return SearchResult(
-        algorithm="Busca Heurística A*",
+        algorithm="Busca Heuristica A*",
         solution=actions,
         path=path,
         cost=cost,

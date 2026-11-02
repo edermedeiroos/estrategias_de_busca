@@ -1,6 +1,5 @@
 """
-Modelagem do Problema de Roteamento para Coleta e Amostragem de Grãos
-em Pátio de Silobags (Grain Sampling & Inspection Routing Problem).
+Modelagem do problema de roteamento e amostragem de graos em grade 2D.
 """
 
 from typing import NamedTuple, List, Tuple, Set, Dict

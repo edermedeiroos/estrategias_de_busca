@@ -1,15 +1,9 @@
 """
-Gerador automatizado do Relatório Técnico do Trabalho 1 em conformidade estrita
-com as especificações do arquivo 2COP015_T1.pdf:
-- Máximo de 2 páginas
-- Uma coluna
-- Margens de 2 cm
-- Fonte Arial tamanho 12
-- Espaçamento simples
+Compilacao do relatorio em PDF (2 paginas, Arial 12, margens 2cm).
 """
 
 import os
-import fitz  # PyMuPDF para conferência de páginas
+import pymupdf
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.lib import colors
@@ -20,7 +14,6 @@ from reportlab.platypus import (
     Spacer,
     Table,
     TableStyle,
-    KeepTogether,
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
@@ -42,13 +35,11 @@ def register_fonts():
             pdfmetrics.registerFont(TTFont("Arial-Italic", arial_path))
         font_regular = "Arial"
         font_bold = "Arial-Bold"
-        font_italic = "Arial-Italic"
     else:
         font_regular = "Helvetica"
         font_bold = "Helvetica-Bold"
-        font_italic = "Helvetica-Oblique"
 
-    return font_regular, font_bold, font_italic
+    return font_regular, font_bold
 
 
 class NumberedCanvas(canvas.Canvas):
@@ -80,7 +71,7 @@ class NumberedCanvas(canvas.Canvas):
 
 
 def build_pdf(filename: str = "relatorio.pdf"):
-    font_reg, font_bold, font_italic = register_fonts()
+    font_reg, font_bold = register_fonts()
 
     doc = SimpleDocTemplate(
         filename,
@@ -93,13 +84,12 @@ def build_pdf(filename: str = "relatorio.pdf"):
 
     styles = getSampleStyleSheet()
 
-    # Estilos rigorosos: Arial 12, espaçamento simples (leading 13-14)
     title_style = ParagraphStyle(
         "DocTitle",
         fontName=font_bold,
         fontSize=12.5,
         leading=14.5,
-        alignment=1,  # Centralizado
+        alignment=1,
         textColor=colors.HexColor("#111111"),
         spaceAfter=3,
     )
@@ -130,7 +120,7 @@ def build_pdf(filename: str = "relatorio.pdf"):
         fontName=font_reg,
         fontSize=9.2,
         leading=11.6,
-        alignment=4,  # Justificado
+        alignment=4,
         textColor=colors.HexColor("#222222"),
         spaceAfter=3.5,
     )
@@ -155,7 +145,7 @@ def build_pdf(filename: str = "relatorio.pdf"):
 
     story = []
 
-    # Cabeçalho
+    # Cabecalho
     story.append(Paragraph("UNIVERSIDADE ESTADUAL DE LONDRINA – CENTRO DE CIÊNCIAS EXATAS", meta_style))
     story.append(Paragraph("<b>2COP015: Inteligência Artificial • Relatório do Trabalho Prático 1</b>", title_style))
     story.append(Paragraph("<b>Tema:</b> Roteamento para Coleta e Amostragem de Grãos em Pátio de Silobags (Agro-TIC)<br/><b>Aluno:</b> Eder Medeiros &nbsp;|&nbsp; <b>Docente:</b> Prof. Dr. Antonio Parmezan", meta_style))
@@ -180,7 +170,7 @@ def build_pdf(filename: str = "relatorio.pdf"):
     )
     story.append(Paragraph(sec1_text, body_style))
 
-    # 2. Estratégias de Busca
+    # 2. Estrategias de Busca
     story.append(Paragraph("2. Estratégias de Busca e Fundamentação Heurística", heading_style))
     sec2_text = (
         "<b>Busca Não Informada:</b> Empregou-se a <b>Busca em Largura (BFS) em Grafo</b> com controle de estados visitados. "
@@ -228,7 +218,7 @@ def build_pdf(filename: str = "relatorio.pdf"):
         # Moderado
         [Paragraph("Moderado<br/>(6×6, K=2)", table_cell_style), Paragraph("BFS", table_cell_style), Paragraph("14", table_cell_style), Paragraph("120", table_cell_style), Paragraph("123", table_cell_style), Paragraph("16", table_cell_style), Paragraph("1,10", table_cell_style), Paragraph("23,79", table_cell_style)],
         [Paragraph("Moderado<br/>(6×6, K=2)", table_cell_style), Paragraph("A*", table_cell_style), Paragraph("14", table_cell_style), Paragraph("14", table_cell_style), Paragraph("29", table_cell_style), Paragraph("15", table_cell_style), Paragraph("0,38", table_cell_style), Paragraph("7,19", table_cell_style)],
-        # Intermediário
+        # Intermediario
         [Paragraph("Intermediário<br/>(10×10, K=4)", table_cell_style), Paragraph("BFS", table_cell_style), Paragraph("38", table_cell_style), Paragraph("1.055", table_cell_style), Paragraph("1.062", table_cell_style), Paragraph("61", table_cell_style), Paragraph("10,36", table_cell_style), Paragraph("138,71", table_cell_style)],
         [Paragraph("Intermediário<br/>(10×10, K=4)", table_cell_style), Paragraph("A*", table_cell_style), Paragraph("38", table_cell_style), Paragraph("176", table_cell_style), Paragraph("236", table_cell_style), Paragraph("60", table_cell_style), Paragraph("4,19", table_cell_style), Paragraph("50,34", table_cell_style)],
         # Complexo
@@ -261,7 +251,7 @@ def build_pdf(filename: str = "relatorio.pdf"):
     )
     story.append(Paragraph(sec4_text, body_style))
 
-    # 5. Conclusão
+    # 5. Conclusao
     story.append(Paragraph("5. Conclusão e Considerações Finais", heading_style))
     sec5_text = (
         "O trabalho demonstrou que a modelagem precisa do espaço de estados acoplada a uma função heurística admissível e consistente "
@@ -271,7 +261,7 @@ def build_pdf(filename: str = "relatorio.pdf"):
     )
     story.append(Paragraph(sec5_text, body_style))
 
-    # 6. Referências
+    # 6. Referencias
     story.append(Paragraph("6. Referências Bibliográficas", heading_style))
     ref_text = (
         "RUSSELL, S. J.; NORVIG, P. <b>Inteligência Artificial: uma abordagem moderna</b>. 4. ed. Rio de Janeiro: GEN LTC, 2022.<br/>"
@@ -281,8 +271,7 @@ def build_pdf(filename: str = "relatorio.pdf"):
 
     doc.build(story, canvasmaker=NumberedCanvas)
 
-    # Verificação de páginas
-    pdf_doc = fitz.open(filename)
+    pdf_doc = pymupdf.open(filename)
     page_count = pdf_doc.page_count
     pdf_doc.close()
     return page_count

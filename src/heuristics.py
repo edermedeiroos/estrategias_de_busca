@@ -1,7 +1,5 @@
 """
-Funções heurísticas para o problema de amostragem de grãos.
-Implementa estimativa admissível e consistente baseada na distância de Manhattan
-e Árvore Geradora Mínima (MST) via algoritmo de Prim.
+Calculo da heuristica admissivel (Manhattan + MST via Prim).
 """
 
 from typing import List, Tuple, Dict
@@ -26,7 +24,7 @@ class SamplingHeuristic:
         if len(points) <= 1:
             return 0
 
-        # Algoritmo de Prim para Árvore Geradora Mínima
+        # MST via Prim
         n = len(points)
         visited = [False] * n
         min_cost = [float("inf")] * n
@@ -70,16 +68,12 @@ class SamplingHeuristic:
                 self.min_to_lab_cache[mask] = 0
 
     def __call__(self, state: State) -> int:
-        # Silobags restantes (não coletadas)
         remaining_mask = self.problem.goal_mask ^ state.collected
-
         pos = (state.r, state.c)
 
-        # Caso todas as silobags já tenham sido coletadas
         if remaining_mask == 0:
             return manhattan_distance(pos, self.lab)
 
-        # Distância do agente até o silobag restante mais próximo
         min_agent_to_target = min(
             manhattan_distance(pos, self.targets[i])
             for i in range(self.num_targets)

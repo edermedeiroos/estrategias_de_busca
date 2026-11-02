@@ -1,3 +1,1 @@
-"""
-Pacote principal do projeto de estratégias de busca (Trabalho 1 - 2COP015).
-"""
+# Modulos do resolvedor de busca
