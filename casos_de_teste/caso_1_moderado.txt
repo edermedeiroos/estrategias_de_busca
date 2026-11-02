@@ -1,0 +1,8 @@
+// Caso 1: Moderado (Pátio Compacto 6x6 com 2 silobags)
+// Legenda: S = Partida, L = Laboratório, B = Silobag (amostra), # = Obstáculo, . = Livre
+S . . . . .
+. # # . B .
+. . . . . .
+. B . # # .
+. . . . . .
+. . . . . L

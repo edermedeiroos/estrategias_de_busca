@@ -1,0 +1,12 @@
+// Caso 2: Intermediário (Pátio Mediano 10x10 com 4 silobags e blocos de armazenamento)
+// Legenda: S = Partida, L = Laboratório, B = Silobag (amostra), # = Obstáculo, . = Livre
+S . . . . # . . . .
+. # # # . # . B # .
+. # . . . . . . # .
+. # . B # # # . # .
+. . . . # . . . . .
+# # . # # . # # # .
+. . . . . . . B . .
+. # # # . # # # . #
+. B . . . . . . . .
+. . . # # # . . . L

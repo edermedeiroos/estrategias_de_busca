@@ -1,0 +1,16 @@
+// Caso 3: Complexo (Pátio Operacional 14x14 com 6 silobags e múltiplas vias)
+// Legenda: S = Partida, L = Laboratório, B = Silobag (amostra), # = Obstáculo, . = Livre
+S . . # . . . . . # . . . .
+. # . # . # # # . # . # # .
+. # . . . # . B . # . . # .
+. # # # . # . . . # # . # .
+. . . # . . . # . . . . . .
+# # . # # # . # # # . # # #
+. . . . . B . . . . . B . .
+. # # # . # # # . # # # . #
+. . . # . . . # . . . # . .
+# . . # . B . # . B . # . #
+# . # # . . . # . . . # . #
+. . . # # # . # # # . # . .
+. B . . . . . . . . . # . .
+. . # # # # . . . # . . . L
